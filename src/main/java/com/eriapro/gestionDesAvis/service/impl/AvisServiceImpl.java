@@ -14,6 +14,7 @@ import com.eriapro.gestionDesAvis.StatusAvis;
 import com.eriapro.gestionDesAvis.DTO.avisDTO.AvisRequestDTO;
 import com.eriapro.gestionDesAvis.entite.Avis;
 import com.eriapro.gestionDesAvis.entite.User;
+import com.eriapro.gestionDesAvis.exception.AvisNotFoundException;
 import com.eriapro.gestionDesAvis.exception.UpdateAvisRefuseException;
 import com.eriapro.gestionDesAvis.mapper.AvisMapper;
 import com.eriapro.gestionDesAvis.repository.AvisRepository;
@@ -71,9 +72,9 @@ public class AvisServiceImpl implements AvisServise {
                 .getAuthentication()
                 .getPrincipal();
         Avis avis = avisRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Avis introuvable"));
+                .orElseThrow(() -> new AvisNotFoundException ("Avis introuvable"));
         if (!avis.getUser().getId().equals(user.getId())) {
-            throw new RuntimeException("Vous ne pouvez pas supprimer cet avis");
+            throw new UpdateAvisRefuseException("Vous ne pouvez pas supprimer cet avis");
         }
         avisRepository.delete(avis);
     }
@@ -85,7 +86,7 @@ public class AvisServiceImpl implements AvisServise {
                 .getAuthentication()
                 .getPrincipal();
         Avis avis = avisRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Avis introuvable"));
+                .orElseThrow(() -> new AvisNotFoundException("Avis introuvable"));
         if (!avis.getUser().getId().equals(user.getId())) {
             throw new UpdateAvisRefuseException("Vous ne pouvez pas modifier cet avis");
         }

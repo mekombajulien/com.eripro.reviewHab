@@ -242,5 +242,21 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(errorResponse);
     }
+    
+   
+    
+    @ExceptionHandler( AvisNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleAvisNotFound(
+    		 AvisNotFoundException exception) {
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                exception.getMessage()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(errorResponse);
+    }
 }
 

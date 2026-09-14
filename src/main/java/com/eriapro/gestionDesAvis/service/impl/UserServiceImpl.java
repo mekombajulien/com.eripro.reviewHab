@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
 
-
+     
 
         Optional<User> userExist =
                 userRepository.findByEmailWithAuthorities(user.getEmail());
@@ -227,7 +227,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
 
-
+ // il permet de charger un utilisateur avec ces roles au moment de la connexion grace a findByEmailWithAuthorities
     @Override
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
@@ -244,7 +244,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
 
-
+  // permet de renitialiser le mot de passe  a partir de l'email , on envoi l email et un code d initialisation est envoyer
 
     public void updatePassword(Map<String, String> param) {
 
@@ -261,7 +261,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
 
-
+    // creer un nouveau mot de passe les parametre attendu son email , code , nouveau mot de passe
 
     public void newPassWord(Map<String, String> param) {
 

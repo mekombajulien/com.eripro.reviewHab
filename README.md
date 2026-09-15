@@ -162,3 +162,4 @@ src/main/java/com/eriapro/gestionDesAvis
 ├── securite/           # JWT, filtres, configuration Spring Security
 └── service/           # Interfaces et implémentations métier
 ```
+## author : codeur brute

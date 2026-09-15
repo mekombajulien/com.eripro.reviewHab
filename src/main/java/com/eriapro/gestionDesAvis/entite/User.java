@@ -34,7 +34,6 @@ import lombok.Setter;
 @Builder
 @Table(name="users")
 public class User implements UserDetails {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id ;
@@ -49,32 +48,22 @@ public class User implements UserDetails {
 	@OneToMany(mappedBy = "user")
 	@Builder.Default
 	private Set<Avis> avis = new HashSet<>();
-
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-
 	    Set<GrantedAuthority> authorities = new HashSet<>();
-
 	    userRoles.forEach(userRole -> {
-
 	        Role role = userRole.getRole();
-
 	        if (role != null) {
-
 	            // Ajout du rôle comme autorité Spring Security
 	            authorities.add(
 	                new SimpleGrantedAuthority(
 	                    "ROLE_" + role.getName()
 	                )
 	            );
-
-
 	            // Ajout des permissions liées au rôle
 	            role.getPermissions()
 	                .forEach(rolePermission -> {
-
 	                    if (rolePermission.getPermission() != null) {
-
 	                        authorities.add(
 	                            new SimpleGrantedAuthority(
 	                                rolePermission
